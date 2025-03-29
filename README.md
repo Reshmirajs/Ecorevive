@@ -24,7 +24,6 @@ This project aligns with the **UN Sustainable Development Goals (SDGs)**, partic
 - [Installation](#installation)
 - [How to Run Locally](#how-to-run-locally)
 - [Future Enhancements](#future-enhancements)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Project Overview
