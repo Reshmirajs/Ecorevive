@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donations & Leaderboard - Eco Revive</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Eco Revive Logo">
+            <span class="green-text cursive-text">EcoRevive</span>
+        </div>
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar Dashboard (Retractable) -->
+        <aside class="dashboard" id="sidebar">
+            <h2>📊 Dashboard</h2>
+            <ul>
+                <li><a href="profile.html">👤 Profile</a></li>
+                <li><a href="order_history.html">📜 Order History</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1 class="full-width-text">🌱 My Donations, Leaderboard & Impact Score</h1>
+                <p class="white-text">Track your donations, view your impact score, and compete globally for a greener future!</p>
+            </section>
+
+            <!-- Back to Services Button -->
+            <section class="back-to-services">
+                <a href="services.html" class="back-button">⬅️ Back to Services</a>
+            </section>
+
+            <!-- Donations and Leaderboard Section (Two Columns) -->
+            <section class="donations-leaderboard">
+                <div class="donations-container">
+                    <h2 class="centered-text">🎁 My Donations</h2>
+                    <div class="donations-box">
+                        <h3>Your Donation History</h3>
+                        <table>
+                            <tr>
+                                <th>Item</th>
+                                <th>Date Donated</th>
+                                <th>Points Earned</th>
+                            </tr>
+                            <tr>
+                                <td>Old Clothes</td>
+                                <td>March 5, 2025</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <td>Plastic Bottles</td>
+                                <td>March 10, 2025</td>
+                                <td>30</td>
+                            </tr>
+                            <!-- Add more rows as donations are made -->
+                        </table>
+                        <p>Donate more items to increase your impact and points!</p>
+                        <button onclick="window.location.href='recycle.html'">Donate Items</button>
+                    </div>
+                </div>
+
+                <div class="leaderboard-container">
+                    <h2 class="centered-text">🏆 Global Leaderboard</h2>
+                    <div class="leaderboard-box">
+                        <h3>Top 5 Donors</h3>
+                        <table>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Impact Score</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>John Doe</td>
+                                <td>2000</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Jane Smith</td>
+                                <td>1800</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Mark Lee</td>
+                                <td>1600</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Amy Johnson</td>
+                                <td>1450</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>David Wang</td>
+                                <td>1300</td>
+                            </tr>
+                        </table>
+                        <p>See how you stack up against other eco-warriors globally!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Impact Score Section -->
+            <section class="impact-score">
+                <h2 class="centered-text">💚 Impact Score</h2>
+                <div class="impact-score-box">
+                    <h3>Your Impact Score</h3>
+                    <div class="score-box">
+                        <p><strong>Current Score:</strong> 1234</p>
+                        <p><strong>Ranking:</strong> 56th</p>
+                        <p><strong>Next Milestone:</strong> Reach 1500 points to unlock Bronze status!</p>
+                    </div>
+                    <p>Keep donating and recycling to increase your impact and contribute to a sustainable world.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Eco Revive | Made with ❤️ for a sustainable future.</p>
+    </footer>
+
+    <!-- Styles -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Logo Styling */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: auto;
+            max-width: 100%;
+        }
+
+        .logo span {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        /* Sidebar Dashboard (Retractable) */
+        .dashboard {
+            width: 250px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+            text-align: left;
+            position: fixed;
+            left: 0;
+            top: 0;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .dashboard ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .dashboard ul li a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .dashboard ul li a:hover {
+            background: #1abc9c;
+        }
+
+        /* Collapsible Sidebar */
+        .dashboard.hidden {
+            transform: translateX(-100%);
+        }
+
+        /* Toggle Button */
+        .menu-toggle {
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 270px;
+            width: 100%;
+            padding: 20px;
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        .dashboard.hidden + main {
+            margin-left: 0;
+        }
+
+        /* Full-Width Hero Text */
+        .full-width-text {
+            background: #28a745;
+            color: white;
+            padding: 20px;
+            margin: 0;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        /* Back to Services Button */
+        .back-to-services {
+            text-align: right;
+            margin: 10px;
+        }
+
+        .back-button {
+            background-color: #1abc9c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .back-button:hover {
+            background-color: #16a085;
+        }
+
+        /* Donations & Leaderboard Section (Two Columns) */
+        .donations-leaderboard {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .donations-container, .leaderboard-container {
+            width: 48%;
+        }
+
+        /* Donations Section */
+        .donations-container {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .donations-box {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .donations-box table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        .donations-box table th, .donations-box table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Leaderboard Section */
+        .leaderboard-container {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .leaderboard-box {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .leaderboard-box table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-box table th, .leaderboard-box table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Impact Score Section */
+        .impact-score {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .impact-score-box {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .score-box {
+            background: #dcdcdc;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        /* Footer */
+        footer {
+            background: #28a745;
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+    </style>
+
+    <!-- JavaScript -->
+    <script>
+        // Dark Mode Toggle
+        document.getElementById("nightModeToggle").addEventListener("click", function () {
+            document.body.classList.toggle("dark-mode");
+            localStorage.setItem("nightMode", document.body.classList.contains("dark-mode"));
+        });
+
+        // Sidebar Toggle
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("hidden");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Your Upcycled Product</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>🎨 Customize Your Upcycled Product</h1>
+        <button onclick="window.location.href='services.html'">🔙 Back to Our Services</button>
+    </header>
+
+    <div class="container">
+        <h2>✨ Make It Yours</h2>
+        <p>Tell us how you want to transform your recycled items into something unique! 🎭</p>
+
+        <!-- Customization Form -->
+        <form id="customizeForm">
+            <label for="itemType">📦 What are you recycling?</label>
+            <select id="itemType" required>
+                <option value="">-- Select an item --</option>
+                <option value="clothes">👕 Old Clothes</option>
+                <option value="plastic">♻️ Plastic Waste</option>
+                <option value="wood">🪵 Wooden Items</option>
+                <option value="metal">🔩 Metal Scraps</option>
+                <option value="electronics">📱 Old Electronics</option>
+            </select>
+
+            <label for="customIdea">💡 Describe your idea:</label>
+            <textarea id="customIdea" placeholder="E.g., 'Turn my old jeans into a backpack'" required></textarea>
+
+            <label for="colorPick">🎨 Choose a Color (if needed):</label>
+            <input type="color" id="colorPick">
+
+            <label for="uploadImage">📸 Upload Reference Image (Optional):</label>
+            <input type="file" id="uploadImage" accept="image/*">
+
+            <button type="submit">🚀 Submit Customization Request</button>
+        </form>
+
+        <!-- Live Preview Section -->
+        <div class="preview">
+            <h3>🔍 Live Preview</h3>
+            <p id="previewText">Your customization details will appear here...</p>
+            <img id="previewImage" src="" style="display: none; width: 100px; height: auto;">
+        </div>
+
+        <div class="cta">
+            <button onclick="validateIdea()">🤔 Check Feasibility</button>
+            <button onclick="window.location.href='buy.html'">🛒 Browse Upcycled Products</button>
+        </div>
+    </div>
+
+    <script>
+        // Update live preview based on form inputs
+        document.getElementById("customizeForm").addEventListener("input", function () {
+            let type = document.getElementById("itemType").value;
+            let idea = document.getElementById("customIdea").value;
+            let color = document.getElementById("colorPick").value;
+            let previewText = document.getElementById("previewText");
+
+            previewText.innerHTML = `You want to turn <b>${type}</b> into "<b>${idea}</b>" using color <b style="color:${color}">${color}</b>`;
+        });
+
+        // Handle image upload for live preview
+        document.getElementById("uploadImage").addEventListener("change", function (event) {
+            let file = event.target.files[0];
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let previewImage = document.getElementById("previewImage");
+                previewImage.src = e.target.result;
+                previewImage.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Validate customization idea (ensure it's safe)
+        function validateIdea() {
+            let idea = document.getElementById("customIdea").value.toLowerCase();
+            let validationMessage = "✅ Feasible! Our team will review and get back to you.";
+
+            if (idea.includes("rocket") || idea.includes("nuclear")) {
+                validationMessage = "⚠️ Sorry, we cannot upcycle dangerous items.";
+            }
+
+            alert(validationMessage);
+        }
+    </script>
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        header {
+            background: #28a745;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            height: 80px;
+        }
+
+        button {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #e68900;
+        }
+
+        /* Preview Section */
+        .preview {
+            margin-top: 20px;
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* CTA Buttons */
+        .cta {
+            margin-top: 20px;
+        }
+
+        .cta button {
+            margin: 10px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .cta button:hover {
+            background-color: #34495e;
+        }
+    </style>
+</body>
+</html>

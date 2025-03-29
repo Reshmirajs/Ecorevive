@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>🛍️ Your Shopping Cart</h1>
+        <div>
+            <button onclick="window.location.href='services.html'">🔙 Back to Our Services</button>
+            <button onclick="window.location.href='buy.html'">🛒 Continue Shopping</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Cart Items -->
+        <div class="cart-items">
+            <h3>🛒 Items in Your Cart</h3>
+            <ul id="cartList">
+                <p>Your cart is empty. Add some items!</p>
+            </ul>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h3>💰 Order Summary</h3>
+            <p>Total: ₹<span id="totalPrice">0</span></p>
+            <button id="checkoutButton">✅ Checkout</button>
+        </div>
+
+        <!-- Discount Progress -->
+        <div class="progress-container">
+            <h3>🎉 Discount Milestone</h3>
+            <div class="progress-bar">
+                <div id="discountProgress" class="progress-fill"></div>
+            </div>
+            <p>Spend ₹1000 to get 10% off! (₹<span id="amountLeft">1000</span> left)</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let cartList = document.getElementById("cartList");
+            let totalPrice = 0;
+
+            cartList.innerHTML = "";
+            if (cart.length === 0) {
+                cartList.innerHTML = "<p>Your cart is empty. Add some items!</p>";
+            } else {
+                cart.forEach((item, index) => {
+                    let li = document.createElement("li");
+                    li.innerHTML = `
+                        <span>${item.name} - ₹${item.price}</span>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity(${index}, -1)">➖</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="updateQuantity(${index}, 1)">➕</button>
+                        </div>
+                        <button onclick="removeItem(${index})">❌ Remove</button>
+                    `;
+                    cartList.appendChild(li);
+                    totalPrice += item.price * item.quantity;
+                });
+            }
+
+            document.getElementById("totalPrice").textContent = totalPrice;
+
+            // Update discount progress
+            let amountLeft = Math.max(1000 - totalPrice, 0);
+            document.getElementById("amountLeft").textContent = amountLeft;
+            document.getElementById("discountProgress").style.width = Math.min((totalPrice / 1000) * 100, 100) + "%";
+        });
+
+        function updateQuantity(index, change) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (cart[index].quantity + change > 0) {
+                cart[index].quantity += change;
+            } else {
+                cart.splice(index, 1);
+            }
+            localStorage.setItem("cart", JSON.stringify(cart));
+            location.reload();
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            location.reload();
+        }
+
+        document.getElementById("checkoutButton").addEventListener("click", function () {
+            if (!localStorage.getItem("loggedInUser")) {
+                alert("Please log in to proceed to checkout.");
+                return;
+            }
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+
+            let email = localStorage.getItem("loggedInUser");
+            let userData = JSON.parse(localStorage.getItem(email)) || { orders: [] };
+
+            // Add all cart items to order history
+            userData.orders = userData.orders.concat(cart);
+            localStorage.setItem(email, JSON.stringify(userData));
+
+            // Clear the cart
+            localStorage.removeItem("cart");
+            alert("🎉 Order placed successfully!");
+            window.location.href = "orders.html";
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        header {
+            background: #02b234cd;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .cart-items ul {
+            list-style: none;
+            padding: 0;
+        }
+        .cart-items li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff3cd;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-controls button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .order-summary {
+            margin-top: 20px;
+            background: #ffeb3b;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .order-summary button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .order-summary button:hover {
+            background: #218838;
+        }
+        .progress-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .progress-bar {
+            width: 100%;
+            background: #ddd;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #086816;
+            width: 0;
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</body>
+</html>
